@@ -216,7 +216,7 @@ class Camera:
 				ctl.set_val(self.line(value,0,self.maxBrightness,ctl.min,ctl.max))
 			else:
 				value = int(value)/self.maxBrightness
-				self.capture.set(cv2.cv.CV_CAP_PROP_BRIGHTNESS, value)
+				self.capture.set(cv2.CAP_PROP_BRIGHTNESS, value)
 
 	def setContrast(self, value):
 		if self.isConnected:
@@ -225,7 +225,7 @@ class Camera:
 				ctl.set_val(self.line(value,0,self.maxContrast,ctl.min,ctl.max))
 			else:
 				value = int(value)/self.maxContrast
-				self.capture.set(cv2.cv.CV_CAP_PROP_CONTRAST, value)
+				self.capture.set(cv2.CAP_PROP_CONTRAST, value)
 
 	def setSaturation(self, value):
 		if self.isConnected:
@@ -234,7 +234,7 @@ class Camera:
 				ctl.set_val(self.line(value,0,self.maxSaturation,ctl.min,ctl.max))
 			else:
 				value = int(value)/self.maxSaturation
-				self.capture.set(cv2.cv.CV_CAP_PROP_SATURATION, value)
+				self.capture.set(cv2.CAP_PROP_SATURATION, value)
 
 	def setExposure(self, value):
 		if self.isConnected:
@@ -244,28 +244,28 @@ class Camera:
 				ctl.set_val(value)
 			elif sys.isWindows():
 				value = int(round(-math.log(value)/math.log(2)))
-				self.capture.set(cv2.cv.CV_CAP_PROP_EXPOSURE, value)
+				self.capture.set(cv2.CAP_PROP_EXPOSURE, value)
 			else:
 				value = int(value) / self.maxExposure
-				self.capture.set(cv2.cv.CV_CAP_PROP_EXPOSURE, value)
+				self.capture.set(cv2.CAP_PROP_EXPOSURE, value)
 			
 
 	def setFrameRate(self, value):
 		if self.isConnected:
-			self.capture.set(cv2.cv.CV_CAP_PROP_FPS, value)
+			self.capture.set(cv2.CAP_PROP_FPS, value)
 
 	def _setWidth(self, value):
 		if self.isConnected:
-			self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, value)
+			self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, value)
 
 	def _setHeight(self, value):
 		if self.isConnected:
-			self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, value)	
+			self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, value)	
 
 	def _updateResolution(self):
 		if self.isConnected:
-			self.width = int(self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH))
-			self.height = int(self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT))
+			self.width = int(self.capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+			self.height = int(self.capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 	def setResolution(self, width, height):
 		if self.isConnected:
@@ -287,7 +287,7 @@ class Camera:
 				ctl = self.controls['UVCC_REQ_BRIGHTNESS_ABS']
 				value = ctl.get_val()
 			else:
-				value = self.capture.get(cv2.cv.CV_CAP_PROP_BRIGHTNESS)
+				value = self.capture.get(cv2.CAP_PROP_BRIGHTNESS)
 				value *= self.maxBrightness
 			return value
 
@@ -298,10 +298,10 @@ class Camera:
 				value = ctl.get_val()
 				value /= self.relExposure
 			elif sys.isWindows():
-				value = self.capture.get(cv2.cv.CV_CAP_PROP_EXPOSURE)
+				value = self.capture.get(cv2.CAP_PROP_EXPOSURE)
 				value = 2**-value
 			else:
-				value = self.capture.get(cv2.cv.CV_CAP_PROP_EXPOSURE)
+				value = self.capture.get(cv2.CAP_PROP_EXPOSURE)
 				value *= self.maxExposure
 			return value
 			
